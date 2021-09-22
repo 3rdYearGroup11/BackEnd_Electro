@@ -53,7 +53,7 @@ async function ApplySuggestions(request, response) {
     var DeviceDetails = DeviceData.data[0];
 
     //await suggestionModel.deleteSuggestions(suggestDetails.device_id, CustId, suggestDetails.bill_id);
-
+    // console.log("first -------------------------------------------")
     // console.log(DeviceDetails);
     // console.log(suggestDetails);
 
@@ -63,8 +63,8 @@ async function ApplySuggestions(request, response) {
           DeviceDetails.hPeak - suggestDetails.can_change_hours;
         DeviceDetails.mPeak =
           DeviceDetails.mPeak - suggestDetails.can_change_minutes;
-        DeviceDetails.hoffPeak =
-          DeviceDetails.hoffPeak + suggestDetails.can_change_hours;
+        DeviceDetails.hOffPeak =
+          DeviceDetails.hOffPeak + suggestDetails.can_change_hours;
         DeviceDetails.mOffPeak =
           DeviceDetails.mOffPeak + suggestDetails.can_change_minutes;
       } else if (suggestDetails.change_time == "day") {
@@ -83,12 +83,15 @@ async function ApplySuggestions(request, response) {
           DeviceDetails.hDay - suggestDetails.can_change_hours;
         DeviceDetails.mDay =
           DeviceDetails.mDay - suggestDetails.can_change_minutes;
-        DeviceDetails.hoffPeak =
-          DeviceDetails.hoffPeak + suggestDetails.can_change_hours;
+        DeviceDetails.hOffPeak =
+          DeviceDetails.hOffPeak + suggestDetails.can_change_hours;
         DeviceDetails.mOffPeak =
           DeviceDetails.mOffPeak + suggestDetails.can_change_minutes;
       }
     }
+
+    // console.log("end -------------------------------------------")
+    // console.log(DeviceDetails);
 
     await monthlyBillCalculate.updateDeviceWithApplySugestion(
       DeviceDetails,
